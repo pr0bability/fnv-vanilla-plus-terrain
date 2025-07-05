@@ -1042,7 +1042,7 @@ void InitHooks(bool abGECK) {
 EXTERN_DLL_EXPORT bool NVSEPlugin_Query(const NVSEInterface* nvse, PluginInfo* info) {
 	info->infoVersion = PluginInfo::kInfoVersion;
 	info->name = "Vanilla Plus Terrain";
-	info->version = 100;
+	info->version = 101;
 	return true;
 }
 
@@ -1050,9 +1050,15 @@ EXTERN_DLL_EXPORT bool NVSEPlugin_Load(NVSEInterface* nvse) {
 	HMODULE hShaderLoader = GetModuleHandle("Fallout Shader Loader.dll");
 	HMODULE hLODFlickerFix = GetModuleHandle("LODFlickerFix.dll");
 	HMODULE hILS = GetModuleHandle("ImprovedLightingShaders.dll");
+	HMODULE hILSPipBoy = GetModuleHandle("PipBoyLightFix.dll");
 
 	if (hILS) {
 		MessageBox(NULL, "Improved Lighting Shaders found.\nVanilla Plus Terrain is not compatible with ILS, please disable it.", "Vanilla Plus Terrain", MB_OK | MB_ICONERROR);
+		ExitProcess(0);
+	}
+
+	if (hILSPipBoy) {
+		MessageBox(NULL, "Pip-Boy Light Fix found.\nVanilla Plus Terrain is not compatible with ILS nor PipBoyLightFix.dll, please disable it.", "Vanilla Plus Terrain", MB_OK | MB_ICONERROR);
 		ExitProcess(0);
 	}
 
